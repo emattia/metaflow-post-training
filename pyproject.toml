@@ -1,0 +1,10 @@
+[project]
+name = "metaflow-post-training"
+version = "0.1.0"
+description = "Post-training scripts integrated with Metaflow and Outerbounds infrastructure stack."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "metaflow-torchrun>=0.1.2",
+    "outerbounds>=0.3.159",
+]
