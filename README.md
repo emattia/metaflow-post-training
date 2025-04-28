@@ -8,11 +8,11 @@ Each example will have its own README explaining how to run the code.
 | Method | Model size | Suggested GPU requirement | 
 | --- | --- | --- |
 | SFT | 3B | ? |
-| SFT | 70B | ? |
+| SFT | 70B | ≥ 8x H100 or 8x A100 |
 | DPO | 3B | ? | 
-| DPO | 70B | ? |
+| DPO | 70B | ≥ 8x H100 or 8x A100 |
 | GRPO | 3B | ? | 
-| GRPO | 70B | ? |
+| GRPO | 70B | ≥ 8x H100 or 8x A100 |
 
 ## Detailed directory structure
 
