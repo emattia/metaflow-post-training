@@ -5,8 +5,8 @@
 If you'd like to get started right away, you can choose an example from the following registry.
 Each example will have its own README explaining how to run the code.
 
-| --- | --- | --- |
 | Method | Model size | Suggested GPU requirement | 
+| --- | --- | --- |
 | SFT | 3B | ? |
 | SFT | 70B | ? |
 | DPO | 3B | ? | 
