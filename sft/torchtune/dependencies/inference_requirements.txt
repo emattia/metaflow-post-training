@@ -1,0 +1,9 @@
+kagglehub==0.3.6
+datasets==3.2.0
+transformers==4.48.3
+vllm==0.7.2 # NOTE: There is an incompatability between vllm and torchtune. Somehow vLLM is overriding CLI path to tune.
+torchtune==0.6.0
+torch==2.5.1
+torchvision==0.20.1
+torchao==0.8.0
+setuptools

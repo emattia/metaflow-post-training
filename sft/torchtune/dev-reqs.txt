@@ -1,0 +1,6 @@
+outerbounds
+torch
+torchtune
+torchao
+vllm
+# TODO: install FlashInfer

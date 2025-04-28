@@ -1,0 +1,48 @@
+ARG PYTHON_VERSION=3.12
+
+### BUILDER ###
+
+FROM python:${PYTHON_VERSION} AS builder
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    bzip2 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sL https://micro.mamba.pm/api/micromamba/linux-64/1.1.0 \
+    | tar -xvj -C /usr/local bin/micromamba
+
+ENV MAMBA_EXE=/usr/local/bin/micromamba \
+    MAMBA_ROOT_PREFIX=/opt/micromamba \
+    CONDA_PREFIX=/opt/micromamba \
+    PATH=/opt/micromamba/bin:$PATH
+
+RUN micromamba create -y -n base && \
+    micromamba shell init --shell=bash --prefix="$MAMBA_ROOT_PREFIX"
+    
+RUN micromamba install python=${PYTHON_VERSION} pip -c conda-forge -y && \
+    python -m pip install --upgrade pip
+
+COPY model_cache_requirements.txt /tmp/requirements.txt
+RUN python -m pip install --no-cache-dir -r /tmp/requirements.txt
+
+FROM python:${PYTHON_VERSION}
+
+RUN apt-get update && apt-get install -y \
+    bzip2 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /usr/local/bin && \
+    curl -sL https://micro.mamba.pm/api/micromamba/linux-64/1.1.0 \
+    | tar -xvj -C /usr/local bin/micromamba
+
+ENV MAMBA_EXE=/usr/local/bin/micromamba \
+    MAMBA_ROOT_PREFIX=/opt/micromamba \
+    CONDA_PREFIX=/opt/micromamba \
+    PATH=/opt/micromamba/bin:$PATH
+
+### RUNNER ###
+COPY --from=builder /opt/micromamba /opt/micromamba
+
+ENTRYPOINT ["/bin/bash", "-c", "eval \"$(/usr/local/bin/micromamba shell hook --shell=bash)\" && micromamba activate base && exec \"$@\"", "--"]
+CMD ["bash"]

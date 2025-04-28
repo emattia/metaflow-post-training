@@ -1,0 +1,3 @@
+huggingface-hub[hf_transfer]==0.25.2
+omegaconf==2.3.0
+PyYAML==6.0.2
